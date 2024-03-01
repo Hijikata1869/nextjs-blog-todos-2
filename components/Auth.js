@@ -13,14 +13,11 @@ export default function Auth() {
 
   const login = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/auth/jwt/create`, {
+      await fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/auth`, {
         method: "POST",
         body: JSON.stringify({
-          user: {
-            username: username,
-            password: password,
-            passwordConfirmation: passwordConfirmation,
-          },
+          username: username,
+          password: password,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -64,11 +61,9 @@ export default function Auth() {
         }).then((res) => {
           if (res.status === 400) {
             throw "authentication failed";
-          } else {
-            console.log(res);
           }
         });
-        // login();
+        login();
       } catch (err) {
         alert(err);
       }
@@ -128,20 +123,22 @@ export default function Auth() {
               </div>
             </div>
 
-            <div className="mt-2">
-              <input
-                name="passwordConfirmation"
-                type="password"
-                placeholder="Password(確認用)"
-                autoComplete="current-password"
-                required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={passwordConfirmation}
-                onChange={(e) => {
-                  setPasswordConfirmation(e.target.value);
-                }}
-              />
-            </div>
+            {isLogin ? null : (
+              <div className="mt-2">
+                <input
+                  name="passwordConfirmation"
+                  type="password"
+                  placeholder="Password(確認用)"
+                  autoComplete="current-password"
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={passwordConfirmation}
+                  onChange={(e) => {
+                    setPasswordConfirmation(e.target.value);
+                  }}
+                />
+              </div>
+            )}
 
             <div className="text-sm text-center">
               <span
