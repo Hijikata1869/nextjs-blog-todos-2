@@ -31,7 +31,10 @@ export default function Auth() {
           }
         })
         .then((data) => {
-          const options = { path: "/" };
+          const options = {
+            path: "/",
+            expires: new Date(Date.now() + 24 * 3600 * 1000),
+          };
           cookie.set("access_token", data.access, options);
         });
       router.push("/main-page");
