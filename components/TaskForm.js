@@ -10,7 +10,7 @@ export default function TaskForm({ taskCreated }) {
     e.preventDefault();
     fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/tasks`, {
       method: "POST",
-      body: JSON.stringify({ title: selectedTask.title }),
+      body: JSON.stringify({ task: { title: selectedTask.title } }),
       headers: {
         "Content-Type": "application/json",
         Authorization: `${cookie.get("access_token")}`,
@@ -30,7 +30,7 @@ export default function TaskForm({ taskCreated }) {
       `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/tasks/${selectedTask.id}`,
       {
         method: "PUT",
-        body: JSON.stringify({ title: selectedTask.title }),
+        body: JSON.stringify({ task: { title: selectedTask.title } }),
         headers: {
           "Content-Type": "application/json",
           Authorization: `${cookie.get("access_token")}`,
